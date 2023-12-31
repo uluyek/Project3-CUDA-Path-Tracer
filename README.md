@@ -65,6 +65,7 @@ Below is my rendered image with a yellow specular material:
 ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/gltf%20loader.jpg)
 
 **5. Hierarchical spatial data structures - BVH: (In progress and wishing to deliver with HW4)**
+
 The GLTF scene above that is below 300 iterations took around half an hour to render on my RTX 2060. To further optimize the project so that I can render more high-poly mesh efficiently, I attempted to implement BVH and I am referring to this implementation tutorial I found online https://jacco.ompf2.com/2022/04/13/how-to-build-a-bvh-part-1-basics/. I hope I can deliver this along with my HW4 submission since it is currently broken.
 
 
