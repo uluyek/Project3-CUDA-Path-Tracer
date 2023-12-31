@@ -29,6 +29,12 @@ To facilitate easy manipulation of these features, control settings are convenie
 
 ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/Control.jpg)
 
+**Performance Analysis:**
+
+![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/performance%20analysis.jpg)
+
+The current testing environment utilizes the classic Cornell Box scene, populated with multiple geometric objects, including cubes and spheres, each with distinct materials. This setting has been chosen due to its efficiency in rendering and material testing. However, it's important to note that the scene's performance is currently suboptimal, primarily due to the sluggish loading times of high-poly meshes in the absence of a Bounding Volume Hierarchy (BVH). The implementation of BVH is anticipated to significantly enhance loading efficiency and overall rendering speed. Once BVH is integrated into the workflow, additional complexity will be introduced to the scene to further test and optimize the rendering process.
+
 ### Part 2: 
 **1. Refraction:** 
 
