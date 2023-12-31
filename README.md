@@ -64,9 +64,7 @@ A more close-up look at the Anti-Aliasing effect:
 
 **4. GLTF Loading:** 
 
-For GLTF loading, I utilized the header-only C++ tiny glTF library (https://github.com/syoyo/tinygltf) suggested in the instructions of this project. I attempted to implement texture mapping and bump mapping yet I couldn't get it working. Thus, my GLTF loader currently only supports mesh for the gltf models. Below is a rendered example of a Stanford bunny gltf model I converted using the CesiumGS converter (https://github.com/CesiumGS/obj2gltf).
-
-Below is my rendered image with a yellow specular material: 
+For GLTF loading, I utilized the header-only C++ tiny glTF library (https://github.com/syoyo/tinygltf) suggested in the instructions of this project. I attempted to implement texture mapping and bump mapping yet I couldn't get it working. Thus, my GLTF loader currently only supports mesh for the gltf models. Below is a rendered example of a Stanford bunny gltf model I converted using the CesiumGS converter (https://github.com/CesiumGS/obj2gltf) with a yellow specular material:
 
 ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/gltf%20loader.jpg)
 
