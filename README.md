@@ -15,16 +15,17 @@
 | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/BRDF%20Diffuse%20Demo.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/Perfectly%20specular-reflective%20Demo.jpg) |
 
 **Path continuation/termination using Stream Compaction:**
-This is done through thrust::partition
+This implementation leverages thrust::partition to differentiate between active and terminated path rays. It ensures only active rays, which are crucial to image generation, are processed, enhancing GPU efficiency by reducing unnecessary computations.
 
 **Material Sorting:**
-This is done through thrust::sort_by_key
+For this feature, thrust::sort_by_key is utilized to organize rays based on material properties prior to shading. This sorting process minimizes warp divergence, leading to more streamlined and efficient rendering.
 
 **First Bounce:**
-
-**Performance testing**:
+The first ray-scene intersections are cached, optimizing performance by eliminating repetitive calculations for the initial rays emanating from the camera. This is particularly effective for scenes where these initial rays are consistent and predictable.
 
 **Controls:**
+
+To facilitate easy manipulation of these features, control settings are conveniently placed in utilities.h. This allows users to toggle features like stream compaction, material sorting, and first bounce caching, adapting the path tracer to various rendering scenarios.
 
 ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/Control.jpg)
 
@@ -57,6 +58,7 @@ Without Anti-Aliasing:
 | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dof%200.001%2011.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dof%200.1%2011.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dop%201%2011%20demo.jpg) |
 
 **GLTF Loading:** 
+For GLTF loading, I utilized 
 
 ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/gltf%20loader.jpg)
 
