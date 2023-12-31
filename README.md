@@ -39,16 +39,13 @@ To facilitate easy manipulation of these features, control settings are convenie
 |---------------|------------------|
 | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/anti%20aliasing%20on.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/anti%20aliasing%20off.jpg) |
 
-With Anti-Aliasing:
+A more close-up look at the Anti-Aliasing effect:
+| With Anti-Aliasing | Without Anti-Aliasing | 
+|---------------|------------------|
+| ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/on%20detail%20true.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/on%20detail.jpg) |
 
-![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/on%20detail%20true.jpg)
-
-Without Anti-Aliasing:
-
-![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/on%20detail.jpg) 
 
 **Depth of Field:**
-
 | Lens Radius 0.1 Focal distance 1 | Lens Radius 0.1 Focal distance 5 | Lens Radius 0.1 Focal distance 10 |  
 |---------------|------------------|------------------|
 | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dof%200.1%201.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dof%200.1%205.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dof%200.1%2010.jpg) |
@@ -58,8 +55,16 @@ Without Anti-Aliasing:
 | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dof%200.001%2011.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dof%200.1%2011.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dop%201%2011%20demo.jpg) |
 
 **GLTF Loading:** 
-For GLTF loading, I utilized 
+For GLTF loading, I utilized the header-only C++ tiny glTF library (https://github.com/syoyo/tinygltf) suggested in the instructions of this project. I attempted to implement texture mapping and bump mapping yet I couldn't get it working. Thus, my GLTF loader currently only supports mesh for the gltf models. Below is a rendered example of a Stanford bunny gltf model I converted using the CesiumGS converter (https://github.com/CesiumGS/obj2gltf).
+
+Below is my rendered image with a yellow specular material: 
 
 ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/gltf%20loader.jpg)
+
+**(In progress and wishing to deliver with HW4) Hierarchical spatial data structures - BVH:**
+The GLTF scene above that is below 300 iterations took around half an hour to render on my RTX 2060. To further optimize the project so that I can render more high-poly mesh efficiently, I attempted to implement BVH and I am referring to this implementation tutorial I found online https://jacco.ompf2.com/2022/04/13/how-to-build-a-bvh-part-1-basics/. I hope I can deliver this along with my HW4 submission since it is currently broken.
+
+
+
 
 
