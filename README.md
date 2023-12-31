@@ -20,6 +20,9 @@
 
 **First Bounce:**
 
+**Controls:**
+![]()
+
 ### Part 2: 
 **Refraction:** 
 
