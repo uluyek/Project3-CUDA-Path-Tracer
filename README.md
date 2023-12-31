@@ -29,7 +29,14 @@
 | With Anti-Aliasing | Without Anti-Aliasing | 
 |---------------|------------------|
 | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/anti%20aliasing%20on.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/anti%20aliasing%20off.jpg) |
-| ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/on%20detail%20true.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/on%20detail.jpg) |
+
+With Anti-Aliasing:
+
+![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/on%20detail%20true.jpg)
+
+Without Anti-Aliasing:
+
+![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/on%20detail.jpg) 
 
 **Depth of Field:**
 
