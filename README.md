@@ -21,6 +21,7 @@
 **First Bounce:**
 
 **Controls:**
+
 ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/Control.jpg)
 
 ### Part 2: 
