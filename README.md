@@ -18,7 +18,7 @@
 This implementation leverages thrust::partition to differentiate between active and terminated path rays. It ensures only active rays, which are crucial to image generation, are processed, enhancing GPU efficiency by reducing unnecessary computations.
 
 **Material Sorting:**
-For this feature, thrust::sort_by_key is utilized to organize rays based on material properties prior to shading. This sorting process minimizes warp divergence, leading to more streamlined and efficient rendering.
+For this feature, thrust::sort_by_key is utilized to organize rays based on material properties before shading. This sorting process minimizes warp divergence, leading to more streamlined and efficient rendering.
 
 **First Bounce:**
 The first ray-scene intersections are cached, optimizing performance by eliminating repetitive calculations for the initial rays emanating from the camera. This is particularly effective for scenes where these initial rays are consistent and predictable.
@@ -61,7 +61,7 @@ Below is my rendered image with a yellow specular material:
 
 ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/gltf%20loader.jpg)
 
-**(In progress and wishing to deliver with HW4) Hierarchical spatial data structures - BVH:**
+**Hierarchical spatial data structures - BVH: (In progress and wishing to deliver with HW4)**
 The GLTF scene above that is below 300 iterations took around half an hour to render on my RTX 2060. To further optimize the project so that I can render more high-poly mesh efficiently, I attempted to implement BVH and I am referring to this implementation tutorial I found online https://jacco.ompf2.com/2022/04/13/how-to-build-a-bvh-part-1-basics/. I hope I can deliver this along with my HW4 submission since it is currently broken.
 
 
