@@ -40,11 +40,11 @@ Without Anti-Aliasing:
 
 **Depth of Field:**
 
-| d0.1 v1 | 0.1 5 | 0.1 10 |  
+| Lens Radius 0.1 Focal distance 1 | Lens Radius 0.1 Focal distance 5 | Lens Radius 0.1 Focal distance 10 |  
 |---------------|------------------|------------------|
 | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dof%200.1%201.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dof%200.1%205.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dof%200.1%2010.jpg) |
 
-| 0.001 11 | 0.1 11 |1 11 |  
+| Lens Radius 0.001 11 | Lens Radius 0.1 Focal distance 11 | Lens Radius 1 Focal distance 11 |  
 |---------------|------------------|------------------|
 | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dof%200.001%2011.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dof%200.1%2011.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/dop%201%2011%20demo.jpg) |
 
