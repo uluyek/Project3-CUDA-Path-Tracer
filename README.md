@@ -1,11 +1,9 @@
 ## CUDA Path Tracer
-================
 
 **University of Pennsylvania, CIS 565: GPU Programming and Architecture, Project 3**
 
 * Keyu Lu
-* Tested on: (TODO) Windows 22, i7-2222 @ 2.22GHz 22GB, GTX 222 222MB (Moore 2222 Lab)
-
+* Tested on: Tested on: Windows 10, Dell Oman, NVIDIA GeForce RTX 2060
 
 ## Feature Implemented:
 
