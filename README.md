@@ -15,10 +15,14 @@
 | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/BRDF%20Diffuse%20Demo.jpg) | ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/Perfectly%20specular-reflective%20Demo.jpg) |
 
 **Path continuation/termination using Stream Compaction:**
+This is done through thrust::partition
 
 **Material Sorting:**
+This is done through thrust::sort_by_key
 
 **First Bounce:**
+
+**Performance testing**:
 
 **Controls:**
 
