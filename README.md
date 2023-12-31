@@ -3,7 +3,7 @@
 **University of Pennsylvania, CIS 565: GPU Programming and Architecture, Project 3**
 
 * Keyu Lu
-* Tested on: Tested on: Windows 10, Dell Oman, NVIDIA GeForce RTX 2060
+* Tested on: Windows 10, Dell Oman, NVIDIA GeForce RTX 2060
 
 ## Feature Implemented:
 
@@ -27,7 +27,7 @@ The first ray-scene intersections are cached, optimizing performance by eliminat
 
 To facilitate easy manipulation of these features, control settings are conveniently placed in utilities.h. This allows users to toggle features like stream compaction, material sorting, and first bounce caching, adapting the path tracer to various rendering scenarios.
 
-![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/Control.jpg)
+![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/controls2.jpg)
 
 **Performance Analysis:**
 
