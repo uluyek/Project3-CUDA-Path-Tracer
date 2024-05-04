@@ -69,11 +69,6 @@ The BVH was implemented following methodologies suggested by [CUDA BVH](https://
 
 ## Performance Analysis
 
-**Performance analysis with BVH off**
-![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/performance%20analysis.jpg)
-
-This testing environment utilizes the classic Cornell Box scene, populated with multiple geometric objects, including cubes and spheres, each with distinct materials. This setting has been chosen due to its efficiency in rendering and material testing.
-
 **Material Sorting Analysis:**
 - **Impact of Material Sorting on Performance:**
   |  | MATERIAL_SORT=0 | MATERIAL_SORT=1 |
