@@ -68,10 +68,30 @@ For GLTF loading, I utilized the header-only C++ tiny glTF library (https://gith
 
 ![](https://github.com/uluyek/Project3-CUDA-Path-Tracer/blob/main/img/gltf%20loader.jpg)
 
-**5. Hierarchical spatial data structures - BVH: (In progress and wishing to deliver with HW4)**
+**5. Hierarchical spatial data structures - BVH**
 
-The GLTF scene above that is below 300 iterations took around half an hour to render on my RTX 2060. To further optimize the project so that I can render more high-poly mesh efficiently, I attempted to implement BVH and I am referring to this implementation tutorial I found online https://jacco.ompf2.com/2022/04/13/how-to-build-a-bvh-part-1-basics/. I hope I can deliver this along with my HW4 submission since it is currently broken.
 
+### Performance and result
+
+|  | MATERIAL_SORT=0 | MATERIAL_SORT=1 |
+|--|--|--|
+| FPS | 45 fps | 20 fps |
+
+|  | number geometry(4),using bvh | number geometry(300)|
+|--|--|--|
+| FPS | 45 fps | 40 fps |
+
+|  | depth=8 | depth=10| depth=12|
+|--|--|--|--|
+| FPS | 45 fps | 39 fps | 38 fps|
+
+ - From the performance test, we can get that when we enable the sort by material. The fps decrease. But, when we sort the rays, it will reduce the warp divergence. But the sort of steps takes time makes the program slow.
+ - We implement the `bvh` for compute intersection. From the test, when we increase the number of geometry from 4 to 30, the fps of the code just decreases a little. That is because the `bvh` will decrease the number of searches for intersections.
+ - we also change the number of bounces to test the performance. We can see that as the depth increases the fps will decrease.
+
+### Reference
+[CUDA BVH](https://github.com/vchoutas/torch-mesh-isect/blob/85b30177821a1527e3fe62fcf8ce65262d7c1879/src/bvh_cuda_op.cu).
+[Maximizing parallelism in the construction of BVHs, octrees, and k-d trees](https://dl.acm.org/citation.cfm?id=2383801).
 
 
 
