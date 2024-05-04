@@ -103,7 +103,8 @@ Refraction, anti-aliasing, and depth of field adjustments showcase significant i
 
 
 ### Reference
-[CUDA BVH](https://github.com/vchoutas/torch-mesh-isect/blob/85b30177821a1527e3fe62fcf8ce65262d7c1879/src/bvh_cuda_op.cu).
+[CUDA BVH](https://github.com/vchoutas/torch-mesh-isect/blob/85b30177821a1527e3fe62fcf8ce65262d7c1879/src/bvh_cuda_op.cu)
+
 [Maximizing parallelism in the construction of BVHs, octrees, and k-d trees](https://dl.acm.org/citation.cfm?id=2383801).
 
 
