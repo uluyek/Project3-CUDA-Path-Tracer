@@ -84,7 +84,7 @@ The BVH was implemented following methodologies suggested by [CUDA BVH](https://
 
 **Bounding Volume Hierarchy (BVH) Impact:**
 - **Performance by Geometry Count with BVH:**
-  |  | number geometry(4), using BVH | number geometry(300) |
+  |  | number geometry(4) | number geometry(300) |
   |--|--|--|
   | FPS | 45 fps | 40 fps |
 
