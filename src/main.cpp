@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
 	// Initialize ImGui Data
 	InitImguiData(guiData);
 	InitDataContainer(guiData);
-
+	printf("iteration is %d \n", iteration);
 	// GLFW main loop
 	mainLoop();
 

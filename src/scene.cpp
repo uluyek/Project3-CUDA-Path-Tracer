@@ -4,6 +4,17 @@
 #include <glm/gtc/matrix_inverse.hpp>
 #include <glm/gtx/string_cast.hpp>
 
+#define TINYGLTF_NO_STB_IMAGE
+#define TINYGLTF_NO_STB_IMAGE_WRITE
+#define TINYGLTF_IMPLEMENTATION
+#include "tiny_gltf.h"
+
+static std::string GetFilePathExtension(const std::string& FileName) {
+    if (FileName.find_last_of(".") != std::string::npos)
+        return FileName.substr(FileName.find_last_of(".") + 1);
+    return "";
+}
+
 Scene::Scene(string filename) {
     cout << "Reading scene from " << filename << " ..." << endl;
     cout << " " << endl;
@@ -18,6 +29,7 @@ Scene::Scene(string filename) {
         utilityCore::safeGetline(fp_in, line);
         if (!line.empty()) {
             vector<string> tokens = utilityCore::tokenizeString(line);
+            //cout << line << "  tokens:"<<tokens.size()<<endl;
             if (strcmp(tokens[0].c_str(), "MATERIAL") == 0) {
                 loadMaterial(tokens[1]);
                 cout << " " << endl;
@@ -51,6 +63,14 @@ int Scene::loadGeom(string objectid) {
             } else if (strcmp(line.c_str(), "cube") == 0) {
                 cout << "Creating new cube..." << endl;
                 newGeom.type = CUBE;
+            }
+            else if (strcmp(line.c_str(), "mesh") == 0) {
+                cout << "Creating new mesh..." << endl;
+                newGeom.type = MESH;
+
+                string gltfobject;
+                utilityCore::safeGetline(fp_in, gltfobject);
+                loadGltfObj(gltfobject);
             }
         }
 
@@ -185,4 +205,153 @@ int Scene::loadMaterial(string materialid) {
         materials.push_back(newMaterial);
         return 1;
     }
+}
+
+int Scene::loadGltfObj(string objf)
+{
+    tinygltf::Model model;
+    tinygltf::TinyGLTF loader;
+    std::string err;
+    std::string warn;
+    std::string ext = GetFilePathExtension(objf);
+    bool ret = false;
+    if (ext.compare("glb") == 0) {
+        std::cout << "Reading binary glTF" << std::endl;
+        // assume binary glTF.
+        ret = loader.LoadBinaryFromFile(&model, &err, &warn,
+            objf.c_str());
+    }
+    else {
+        std::cout << "Reading ASCII glTF" << std::endl;
+        // assume ascii glTF.
+        ret = loader.LoadASCIIFromFile(&model, &err, &warn, objf.c_str());
+    }
+
+
+
+    int matStartIdx = materials.size();
+    printf("materials size =%d\n", matStartIdx);
+    for (const tinygltf::Material& material : model.materials)
+    {
+
+        materials.emplace_back();
+        Material& mat = materials.back();
+        mat.color = glm::vec3(1.f, 0.f, 0.f);
+        mat.emittance = 0;
+        mat.hasReflective = 0;
+        mat.hasRefractive = 0;
+        mat.indexOfRefraction = 0;
+        mat.specular.color = glm::vec3(0.f);
+        mat.specular.exponent = 0;
+    }
+
+    // Load primitives
+    int primStartIdx = 0;
+    int primCnt = 0;
+    for (const tinygltf::Mesh& mesh : model.meshes)
+    {
+        for (const tinygltf::Primitive& primitive : mesh.primitives)
+        {
+            const int primMatId = primitive.material >= 0 ? matStartIdx + primitive.material : -1;
+           
+            const tinygltf::Accessor& posAccessor = model.accessors[primitive.attributes.at("POSITION")];
+            const tinygltf::BufferView& posBufferView = model.bufferViews[posAccessor.bufferView];
+            const tinygltf::Buffer& posBuffer = model.buffers[posBufferView.buffer];
+            const float* posArray = reinterpret_cast<const float*>(&posBuffer.data[posBufferView.byteOffset + posAccessor.byteOffset]);
+
+            const float* norArray = nullptr;
+            if (primitive.attributes.find("NORMAL") != primitive.attributes.end()) {
+                const tinygltf::Accessor& norAccessor = model.accessors[primitive.attributes.at("NORMAL")];
+                const tinygltf::BufferView& norBufferView = model.bufferViews[norAccessor.bufferView];
+                const tinygltf::Buffer& norBuffer = model.buffers[norBufferView.buffer];
+                norArray = reinterpret_cast<const float*>(&norBuffer.data[norBufferView.byteOffset + norAccessor.byteOffset]);
+            }
+
+
+
+            if (primitive.indices < 0) {
+                // vertices are not shared (not indexed)
+                for (size_t i = 0; i < posAccessor.count; i += 3)
+                {
+                    hTriangle triangle;
+                    
+                    triangle.v1.pos = glm::vec3(posArray[i * 3], posArray[i * 3 + 1], posArray[i * 3 + 2]);
+                    triangle.v2.pos = glm::vec3(posArray[(i + 1) * 3], posArray[(i + 1) * 3 + 1], posArray[(i + 1) * 3 + 2]);
+                    triangle.v3.pos = glm::vec3(posArray[(i + 2) * 3], posArray[(i + 2) * 3 + 1], posArray[(i + 2) * 3 + 2]);
+
+                    if (norArray)
+                    {
+                        triangle.v1.nor = glm::vec3(norArray[i * 3], norArray[i * 3 + 1], norArray[i * 3 + 2]);
+                        triangle.v2.nor = glm::vec3(norArray[(i + 1) * 3], norArray[(i + 1) * 3 + 1], norArray[(i + 1) * 3 + 2]);
+                        triangle.v3.nor = glm::vec3(norArray[(i + 2) * 3], norArray[(i + 2) * 3 + 1], norArray[(i + 2) * 3 + 2]);
+
+                        float3 n1_pos = { norArray[i * 3], norArray[i * 3 + 1], norArray[i * 3 + 2] };
+                        float3 n2_pos = { norArray[(i + 1) * 3], norArray[(i + 1) * 3 + 1], norArray[(i + 1) * 3 + 2] };
+                        float3 n3_pos = { norArray[(i + 2) * 3], norArray[(i + 2) * 3 + 1], norArray[(i + 2) * 3 + 2] };
+                        Triangle normal_point(n1_pos, n2_pos, n3_pos);
+                        triangle_normls.push_back(normal_point);
+                    }
+
+                    float3 v1_pos = { triangle.v1.pos.x, triangle.v1.pos.y,triangle.v1.pos.z };
+                    float3 v2_pos = { triangle.v2.pos.x, triangle.v2.pos.y,triangle.v2.pos.z };
+                    float3 v3_pos = { triangle.v3.pos.x, triangle.v3.pos.y,triangle.v3.pos.z };
+                    Triangle triangle_point(v1_pos, v2_pos, v3_pos);
+                    triangle.centroid = (triangle.v1.pos + triangle.v2.pos + triangle.v3.pos) * 0.33333333333f;
+                    triangle.materialid = primMatId;
+                    triangle_materialid.push_back(primMatId);
+                    triangles.push_back(triangle);
+                    triangle_points.push_back(triangle_point);
+                    ++primCnt;
+                }
+            }
+            else
+            {
+                const tinygltf::Accessor& indAccessor = model.accessors[primitive.indices];
+                const tinygltf::BufferView& indBufferView = model.bufferViews[indAccessor.bufferView];
+                const tinygltf::Buffer& indBuffer = model.buffers[indBufferView.buffer];
+
+                const uint16_t* indArray = reinterpret_cast<const uint16_t*>(&indBuffer.data[indBufferView.byteOffset + indAccessor.byteOffset]);
+                for (size_t i = 0; i < indAccessor.count; i += 3)
+                {
+                    hTriangle triangle;
+
+                    const int v1 = indArray[i];
+                    const int v2 = indArray[i + 1];
+                    const int v3 = indArray[i + 2];
+
+                    triangle.v1.pos = glm::vec3(posArray[v1 * 3], posArray[v1 * 3 + 1], posArray[v1 * 3 + 2]);
+                    triangle.v2.pos = glm::vec3(posArray[v2 * 3], posArray[v2 * 3 + 1], posArray[v2 * 3 + 2]);
+                    triangle.v3.pos = glm::vec3(posArray[v3 * 3], posArray[v3 * 3 + 1], posArray[v3 * 3 + 2]);
+
+                    if (norArray)
+                    {
+                        triangle.v1.nor = glm::vec3(norArray[v1 * 3], norArray[v1 * 3 + 1], norArray[v1 * 3 + 2]);
+                        triangle.v2.nor = glm::vec3(norArray[v2 * 3], norArray[v2 * 3 + 1], norArray[v2 * 3 + 2]);
+                        triangle.v3.nor = glm::vec3(norArray[v3 * 3], norArray[v3 * 3 + 1], norArray[v3 * 3 + 2]);
+
+                        float3 n1_pos = { norArray[v1 * 3], norArray[v1 * 3 + 1], norArray[v1 * 3 + 2] };
+                        float3 n2_pos = { norArray[v2 * 3], norArray[v2 * 3 + 1], norArray[v2 * 3 + 2] };
+                        float3 n3_pos = { norArray[v3 * 3], norArray[v3 * 3 + 1], norArray[v3 * 3 + 2] };
+                        Triangle normal_point(n1_pos, n2_pos, n3_pos);
+                        triangle_normls.push_back(normal_point);
+                    }
+
+                    float3 v1_pos = { triangle.v1.pos.x, triangle.v1.pos.y,triangle.v1.pos.z };
+                    float3 v2_pos = { triangle.v2.pos.x, triangle.v2.pos.y,triangle.v2.pos.z };
+                    float3 v3_pos = { triangle.v3.pos.x, triangle.v3.pos.y,triangle.v3.pos.z };
+                    Triangle triangle_point(v1_pos, v2_pos, v3_pos);
+                    triangle_points.push_back(triangle_point);
+
+                    triangle.centroid = (triangle.v1.pos + triangle.v2.pos + triangle.v3.pos) * 0.33333333333f;
+                    triangle.materialid = primMatId;
+                    triangle_materialid.push_back(primMatId);
+                    triangles.push_back(triangle);
+                    ++primCnt;
+                }
+            }
+        }
+    }
+    printf("materials size =%d, material size =%d\n", triangles.size(), materials.size());
+
+    return 0;
 }

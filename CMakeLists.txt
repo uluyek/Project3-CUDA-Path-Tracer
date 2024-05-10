@@ -74,7 +74,8 @@ set(headers
     src/preview.h
     src/utilities.h
     src/ImGui/imconfig.h
-	
+	src/bvh.h
+
 	src/ImGui/imgui.h
     src/ImGui/imconfig.h
     src/ImGui/imgui_impl_glfw.h
@@ -84,6 +85,9 @@ set(headers
      src/ImGui/imstb_rectpack.h 
      src/ImGui/imstb_textedit.h 
      src/ImGui/imstb_truetype.h 
+     src/tinygltf/tiny_gltf.h
+     src/tinygltf/json.hpp
+
     )
 
 set(sources
@@ -95,7 +99,8 @@ set(sources
     src/scene.cpp
     src/preview.cpp
     src/utilities.cpp
-	
+	src/bvh.cu
+    
     src/ImGui/imgui.cpp 
       src/ImGui/imgui_demo.cpp 
       src/ImGui/imgui_draw.cpp 
